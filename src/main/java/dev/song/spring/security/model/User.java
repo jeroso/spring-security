@@ -19,7 +19,9 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;    //ROLE_USER, ROLE_ADMIN, ROLE_MANAGER
+    private String role;   //ROLE_USER, ROLE_ADMIN, ROLE_MANAGER
+    private String provider;    // oauth2 provider : google, facebook, kakao
+    private String providerId;  // provider id
     @CreationTimestamp
     private LocalDateTime createDate = LocalDateTime.now();
 

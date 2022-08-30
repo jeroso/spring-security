@@ -4,6 +4,8 @@ import dev.song.spring.security.model.User;
 import dev.song.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,5 +61,17 @@ public class IndexController {
         return "redirect:/loginForm";
     }
 
+    @Secured("ROLE_ADMIN")  // 하나만 사용시
+    @GetMapping("/info")
+    @ResponseBody
+    public String info() {
+        return "개인정보";
+    }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") // 하나 이상 사용 시
+    @GetMapping("/data")
+    @ResponseBody
+    public String data() {
+        return "데이터 정보";
+    }
 }
