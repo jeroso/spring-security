@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 9990
   servlet:
     context-path: /
     encoding:
@@ -16,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
