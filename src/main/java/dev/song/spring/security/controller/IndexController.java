@@ -1,11 +1,14 @@
 package dev.song.spring.security.controller;
 
+import dev.song.spring.security.config.auth.PrincipalDetails;
 import dev.song.spring.security.model.User;
 import dev.song.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,15 @@ public class IndexController {
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/test/login")
+    @ResponseBody
+    public String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("principal.getUser() = " + principal.getUser());
+        System.out.println("principalDetails = " + principalDetails.getUser());
+        return "테스트 로그인";
+    }
 
     @GetMapping({"", "/"})
     public String index() {
